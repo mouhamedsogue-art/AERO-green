@@ -7,7 +7,6 @@
   <meta property="og:title" content="Velocity Aero Green 1.0 - Drop Officiel 2026" />
   <meta property="og:description" content="500 paires. 60% de reduction carbone. Reservez avant la fin du drop." />
   <meta property="og:type" content="website" />
-  <link rel="preload" as="image" href="greenshoes-700.webp" />
   <title>Velocity - Aero Green 1.0 | Drop Officiel 2026</title>
   <style>
     :root{
@@ -41,7 +40,7 @@
     p{margin:0}
     p + p{margin-top:.8rem}
 
-    .container{width:min(1120px,92%);margin-inline:auto}
+    .container{width:min(1200px,94%);margin-inline:auto}
     .section{padding:70px 0}
     .defer-section{
       content-visibility:auto;
@@ -89,13 +88,16 @@
     }
 
     .hero{
-      padding:48px 0 24px;
+      --visual-h:420px;
+      --cards-h:220px;
+      padding:34px 0 18px;
     }
     .hero-grid{
       display:grid;
       grid-template-columns:1fr;
       gap:22px;
     }
+    .hero-col-main,.hero-col-visual{min-width:0}
     .hero-title{
       font-family:var(--font-head);
       letter-spacing:.02em;
@@ -133,7 +135,7 @@
     .cta-link:hover{background:#29bf6e;transform:translateY(-1px)}
 
     .countdown{
-      margin-top:18px;
+      margin-top:14px;
       background:linear-gradient(180deg,var(--panel-soft),var(--panel));
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -205,7 +207,12 @@
       z-index:2;
     }
     .hero-photo{
-      width:min(470px,100%);
+      width:auto;
+      height:auto;
+      max-width:88vw;
+      max-height:340px;
+      border-radius:22px;
+      object-fit:contain;
       filter:drop-shadow(0 16px 20px rgba(0,0,0,.35));
     }
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
@@ -215,6 +222,23 @@
       display:grid;
       gap:12px;
       grid-template-columns:1fr;
+    }
+
+    @media (max-width:520px){
+      .hero{padding:24px 0 10px}
+      .hero-grid{gap:16px}
+      .hero-title{font-size:clamp(2.45rem,14vw,3.2rem);margin:.35rem 0 .7rem}
+      .hero-sub{font-size:.96rem}
+      .hero-actions{margin-top:14px}
+      .cta-link{width:100%;min-width:0}
+      .countdown{padding:12px 12px;gap:10px}
+      .digits{gap:8px}
+      .sep{font-size:1.7rem}
+      .hero-visual{padding:14px;min-height:360px;border-radius:20px}
+      .hero-edition{top:10px;right:10px}
+      .hero-photo{max-width:92vw;max-height:320px;border-radius:18px}
+      .hero-bottom{gap:10px;margin-top:12px}
+      .card{padding:12px}
     }
     .card{
       background:linear-gradient(180deg,var(--panel-soft),var(--panel));
@@ -439,6 +463,78 @@
     }
     .reveal.is-visible{opacity:1;transform:none}
 
+    .entry-modal{
+      position:fixed;
+      inset:0;
+      z-index:50;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      background:rgba(0,0,0,.58);
+    }
+    .entry-modal.is-open{display:flex}
+    .entry-panel{
+      width:min(480px,100%);
+      border:1px solid var(--line);
+      background:linear-gradient(170deg,#121b16,#0c130f);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .entry-title{
+      font-family:var(--font-head);
+      font-size:2rem;
+      line-height:.92;
+      margin:0 0 8px;
+      letter-spacing:.02em;
+    }
+    .entry-title span{color:var(--green)}
+    .entry-sub{color:var(--muted);margin-bottom:12px}
+    .entry-count{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:rgba(255,255,255,.02);
+      margin-bottom:12px;
+    }
+    .entry-count strong{
+      font-family:var(--font-head);
+      font-size:1.7rem;
+      line-height:1;
+      min-width:2ch;
+      text-align:center;
+    }
+    .entry-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .entry-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      border-radius:10px;
+      padding:10px 14px;
+      border:1px solid rgba(255,255,255,.12);
+      font-weight:700;
+      cursor:pointer;
+      font-family:var(--font-body);
+    }
+    .entry-btn.primary{
+      background:var(--green);
+      color:#051109;
+      border-color:transparent;
+    }
+    .entry-btn.ghost{
+      background:transparent;
+      color:var(--text);
+    }
+
     @media (min-width:760px){
       body{
         background:
@@ -447,7 +543,15 @@
           var(--bg);
       }
       .hero-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:26px;align-items:start}
-      .hero-bottom{grid-template-columns:1fr 1fr}
+      .hero-col-main{
+        display:grid;
+        grid-template-rows:var(--visual-h) var(--cards-h);
+        align-content:start;
+      }
+      .hero-copy{align-self:start}
+      .hero-col-main .countdown{margin-top:0;align-self:end}
+      .hero-col-visual{display:grid;grid-template-rows:auto auto;align-content:start}
+      .hero-bottom{grid-template-columns:1fr 1fr;min-height:var(--cards-h)}
       .eco-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .limited{grid-template-columns:1fr 1fr;align-items:center}
       .cta-link{box-shadow:var(--shadow)}
@@ -465,9 +569,10 @@
     }
 
     @media (min-width:1000px){
-      .hero{padding-top:58px}
+      .hero{--visual-h:520px;--cards-h:250px;padding-top:48px}
       .hero-title{margin-top:.9rem}
       .hero-visual{min-height:520px}
+      .hero-photo{max-width:100%;max-height:430px}
       .eco-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
     }
 
@@ -475,27 +580,25 @@
       *,*::before,*::after{animation:none !important;transition:none !important}
       .reveal{opacity:1;transform:none}
     }
-
-    /* Android / low-power touch devices: reduce GPU-heavy effects */
-    @media (hover:none) and (pointer:coarse){
-      header{position:static}
-      .hero-photo{animation:none !important;filter:none !important}
-      .hero-visual,.reserve-wrap,.cta-link{box-shadow:none !important}
-      .reveal{opacity:1;transform:none;transition:none}
-      .cta-link,.cta-btn{transition:none}
-    }
-
-    body.android-lite header{position:static}
-    body.android-lite .hero-photo{animation:none !important;filter:none !important}
-    body.android-lite .hero-visual,
-    body.android-lite .reserve-wrap,
-    body.android-lite .cta-link{box-shadow:none !important}
-    body.android-lite .reveal{opacity:1;transform:none;transition:none}
-    body.android-lite .cta-link,
-    body.android-lite .cta-btn{transition:none}
   </style>
 </head>
 <body>
+  <div class="entry-modal" id="entryModal" role="dialog" aria-modal="true" aria-labelledby="entryTitle">
+    <div class="entry-panel">
+      <h2 class="entry-title" id="entryTitle">DROP <span>EN COURS</span></h2>
+      <p class="entry-sub">Edition limitee a 500 paires. Le countdown a deja commence.</p>
+      <div class="entry-count" aria-live="polite">
+        <strong id="m-h">00</strong><span>h</span>
+        <strong id="m-m">00</strong><span>min</span>
+        <strong id="m-s">00</strong><span>s</span>
+      </div>
+      <div class="entry-actions">
+        <a href="#reserve" class="entry-btn primary" id="entryCta">Reserver maintenant</a>
+        <button type="button" class="entry-btn ghost" id="entryClose">Continuer la visite</button>
+      </div>
+    </div>
+  </div>
+
   <header>
     <nav class="container nav" aria-label="Navigation principale">
       <span class="logo" aria-label="Velocity">VELOCITY</span>
@@ -506,14 +609,15 @@
   <main>
     <section class="hero container" aria-labelledby="hero-title">
       <div class="hero-grid">
-        <div>
-          <h1 id="hero-title" class="hero-title">AERO<br /><span>GREEN</span><br />1.0</h1>
-          <p class="hero-sub">La premiere sneaker de performance entierement eco-concue par Velocity. Matieres recyclees, semelle biodegradable, empreinte carbone reduite de 60%.</p>
+        <div class="hero-col-main">
+          <div class="hero-copy">
+            <h1 id="hero-title" class="hero-title">AERO<br /><span>GREEN</span><br />1.0</h1>
+            <p class="hero-sub">La premiere sneaker de performance entierement eco-concue par Velocity. Matieres recyclees, semelle biodegradable, empreinte carbone reduite de 60%.</p>
 
-          <div class="hero-actions">
-            <a href="#reserve" class="cta-link">Reserver ma paire</a>
+            <div class="hero-actions">
+              <a href="#reserve" class="cta-link">Reserver ma paire</a>
+            </div>
           </div>
-
           <div class="countdown" role="timer" aria-live="polite" aria-label="Temps restant avant la fin du drop">
             <div>
               <p class="countdown-title">Drop se termine dans</p>
@@ -529,10 +633,10 @@
           </div>
         </div>
 
-        <div>
+        <div class="hero-col-visual">
           <div class="hero-visual">
             <span class="tag hero-edition">Edition limitee - 500 paires</span>
-            <img class="hero-photo" src="greenshoes.webp" srcset="greenshoes-700.webp 700w, greenshoes.webp 1200w" sizes="(max-width: 760px) 88vw, 470px" alt="Sneaker Velocity Aero Green 1.0" width="1200" height="1500" fetchpriority="high" />
+            <img class="hero-photo" src="greenshoes.jpg" srcset="greenshoes-700.webp 700w, greenshoes.webp 1200w" sizes="(max-width: 520px) 92vw, (max-width: 760px) 88vw, 430px" alt="Sneaker Velocity Aero Green 1.0" width="1200" height="1500" decoding="async" fetchpriority="high" />
           </div>
           <div class="hero-bottom">
             <aside class="card" aria-label="Points forts du produit">
@@ -651,13 +755,6 @@
 
   <script>
     (function(){
-      const ua = navigator.userAgent || "";
-      const isAndroid = /Android/i.test(ua);
-      const lowRam = navigator.deviceMemory && navigator.deviceMemory <= 4;
-      if (isAndroid || lowRam) document.body.classList.add("android-lite");
-    })();
-
-    (function(){
       const END = Date.now() + 23 * 3600000 + 58 * 60000 + 32000;
       const pad = n => String(n).padStart(2, "0");
       const tick = () => {
@@ -666,9 +763,35 @@
         document.getElementById("t-h").textContent = pad(Math.floor(d / 3.6e6) % 24);
         document.getElementById("t-m").textContent = pad(Math.floor(d / 60000) % 60);
         document.getElementById("t-s").textContent = pad(Math.floor(d / 1000) % 60);
+        const mh = document.getElementById("m-h");
+        const mm = document.getElementById("m-m");
+        const ms = document.getElementById("m-s");
+        if (mh && mm && ms) {
+          mh.textContent = pad(Math.floor(d / 3.6e6) % 24);
+          mm.textContent = pad(Math.floor(d / 60000) % 60);
+          ms.textContent = pad(Math.floor(d / 1000) % 60);
+        }
       };
       tick();
       setInterval(tick, 1000);
+    })();
+
+    (function(){
+      const modal = document.getElementById("entryModal");
+      const closeBtn = document.getElementById("entryClose");
+      const cta = document.getElementById("entryCta");
+      if (!modal || !closeBtn || !cta) return;
+      const seen = sessionStorage.getItem("entry-modal-seen") === "1";
+      if (!seen) modal.classList.add("is-open");
+      const closeModal = () => {
+        modal.classList.remove("is-open");
+        sessionStorage.setItem("entry-modal-seen", "1");
+      };
+      closeBtn.addEventListener("click", closeModal);
+      cta.addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
     })();
 
     (function(){
