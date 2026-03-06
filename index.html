@@ -474,6 +474,24 @@
       *,*::before,*::after{animation:none !important;transition:none !important}
       .reveal{opacity:1;transform:none}
     }
+
+    /* Android / low-power touch devices: reduce GPU-heavy effects */
+    @media (hover:none) and (pointer:coarse){
+      header{position:static}
+      .hero-photo{animation:none !important;filter:none !important}
+      .hero-visual,.reserve-wrap,.cta-link{box-shadow:none !important}
+      .reveal{opacity:1;transform:none;transition:none}
+      .cta-link,.cta-btn{transition:none}
+    }
+
+    body.android-lite header{position:static}
+    body.android-lite .hero-photo{animation:none !important;filter:none !important}
+    body.android-lite .hero-visual,
+    body.android-lite .reserve-wrap,
+    body.android-lite .cta-link{box-shadow:none !important}
+    body.android-lite .reveal{opacity:1;transform:none;transition:none}
+    body.android-lite .cta-link,
+    body.android-lite .cta-btn{transition:none}
   </style>
 </head>
 <body>
@@ -631,6 +649,13 @@
   </footer>
 
   <script>
+    (function(){
+      const ua = navigator.userAgent || "";
+      const isAndroid = /Android/i.test(ua);
+      const lowRam = navigator.deviceMemory && navigator.deviceMemory <= 4;
+      if (isAndroid || lowRam) document.body.classList.add("android-lite");
+    })();
+
     (function(){
       const END = Date.now() + 23 * 3600000 + 58 * 60000 + 32000;
       const pad = n => String(n).padStart(2, "0");
